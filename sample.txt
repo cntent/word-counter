@@ -1,0 +1,6 @@
+This is a sample text file.
+It contains multiple lines
+and various words for testing
+the word counter tool.
+Some words appear multiple times.
+Testing testing testing! 

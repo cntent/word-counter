@@ -1,0 +1,33 @@
+name: Deploy Word Counter API
+
+on:
+  push:
+    branches: [ main ]
+  repository_dispatch:
+    types: [analyze-text]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Deploy to AWS Lambda
+      run: |
+        zip -r function.zip .
+        aws lambda update-function-code --function-name word-counter --zip-file fileb://function.zip
+
+    - name: Handle Repository Dispatch
+      if: github.event_name == 'repository_dispatch'
+      run: |
+        python handler.py
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        EVENT_PAYLOAD: ${{ toJson(github.event.client_payload) }} 
