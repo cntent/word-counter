@@ -66,3 +66,25 @@ def test_anthropic_interface():
     assert result["basic_stats"]["word_count"] == 6
     assert result["basic_stats"]["unique_words"] == 6
     assert "error" not in result
+
+def test_anthropic_call_format():
+    counter = WordCounter()
+    result = counter({
+        "text": "The quick brown fox jumps over the lazy dog. This classic pangram has been used for typing practice."
+    })
+    
+    assert "basic_stats" in result
+    assert result["basic_stats"]["word_count"] == 14
+    assert result["basic_stats"]["unique_words"] == 13
+    assert "error" not in result
+
+def test_text_with_punctuation():
+    counter = WordCounter()
+    result = counter({
+        "text": "Hello! This... is a test, with punctuation."
+    })
+    
+    assert "basic_stats" in result
+    assert result["basic_stats"]["word_count"] == 7  # Hello, This, is, a, test, with, punctuation
+    assert result["basic_stats"]["unique_words"] == 7
+    assert "error" not in result
