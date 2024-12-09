@@ -1,0 +1,93 @@
+{
+  "name": "word_counter",
+  "description": "A tool for analyzing text, providing word counts, character counts, and detailed linguistic analysis",
+  "api_endpoint": "https://api.github.com/repos/cntent/word-counter/dispatches",
+  "method": "POST",
+  "headers": {
+    "Authorization": "Bearer ${{ secrets.GITHUB_TOKEN }}",
+    "Accept": "application/vnd.github.v3+json"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "description": "The text to analyze"
+      },
+      "include_analysis": {
+        "type": "boolean",
+        "description": "Whether to include Claude's detailed analysis",
+        "default": false
+      },
+      "top_n_words": {
+        "type": "integer",
+        "description": "Number of most frequent words to return",
+        "minimum": 1,
+        "default": null
+      }
+    },
+    "required": ["text"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "basic_stats": {
+        "type": "object",
+        "properties": {
+          "word_count": {
+            "type": "integer",
+            "description": "Total number of words"
+          },
+          "char_count": {
+            "type": "integer",
+            "description": "Total number of characters (excluding whitespace)"
+          },
+          "line_count": {
+            "type": "integer",
+            "description": "Total number of lines"
+          },
+          "unique_words": {
+            "type": "integer",
+            "description": "Number of unique words"
+          }
+        }
+      },
+      "word_frequency": {
+        "type": "object",
+        "description": "Dictionary of word frequencies",
+        "additionalProperties": {
+          "type": "integer"
+        }
+      },
+      "claude_analysis": {
+        "type": "string",
+        "description": "Detailed analysis by Claude (if requested)"
+      }
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "text": "The quick brown fox jumps over the lazy dog.",
+        "include_analysis": true,
+        "top_n_words": 5
+      },
+      "output": {
+        "basic_stats": {
+          "word_count": 9,
+          "char_count": 35,
+          "line_count": 1,
+          "unique_words": 8
+        },
+        "word_frequency": {
+          "the": 2,
+          "quick": 1,
+          "brown": 1,
+          "fox": 1,
+          "jumps": 1
+        },
+        "claude_analysis": "Analysis of text structure and meaning..."
+      }
+    }
+  ]
+} 
