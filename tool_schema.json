@@ -9,6 +9,7 @@
   },
   "input_schema": {
     "type": "object",
+    "additionalProperties": false,
     "properties": {
       "text": {
         "type": "string",
@@ -30,6 +31,7 @@
   },
   "returns": {
     "type": "object",
+    "additionalProperties": false,
     "properties": {
       "basic_stats": {
         "type": "object",
