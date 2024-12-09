@@ -11,5 +11,19 @@
     },
     "required": ["text"],
     "additionalProperties": false
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "basic_stats": {
+        "type": "object",
+        "properties": {
+          "word_count": {"type": "integer"},
+          "char_count": {"type": "integer"},
+          "line_count": {"type": "integer"},
+          "unique_words": {"type": "integer"}
+        }
+      }
+    }
   }
-} 
+}
