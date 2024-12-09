@@ -1,0 +1,29 @@
+name: Word Count Action
+
+on:
+  repository_dispatch:
+    types: [word-count]
+
+jobs:
+  count-words:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Count Words
+        run: |
+          python - <<EOF
+          from word_counter import WordCounter
+          import json
+          import os
+          import sys
+
+          with open(os.environ['GITHUB_EVENT_PATH']) as f:
+              event = json.load(f)
+          
+          counter = WordCounter()
+          result = counter({"text": event['client_payload']['text']})
+          print(json.dumps(result))
+          EOF 
