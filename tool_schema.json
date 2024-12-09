@@ -7,7 +7,7 @@
     "Authorization": "Bearer ${{ secrets.GITHUB_TOKEN }}",
     "Accept": "application/vnd.github.v3+json"
   },
-  "parameters": {
+  "input_schema": {
     "type": "object",
     "properties": {
       "text": {
