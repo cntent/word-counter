@@ -11,35 +11,5 @@
     },
     "required": ["text"],
     "additionalProperties": false
-  },
-  "returns": {
-    "type": "object",
-    "properties": {
-      "basic_stats": {
-        "type": "object",
-        "properties": {
-          "word_count": {
-            "type": "integer",
-            "description": "Total number of words"
-          },
-          "char_count": {
-            "type": "integer",
-            "description": "Total number of characters (excluding whitespace)"
-          },
-          "line_count": {
-            "type": "integer",
-            "description": "Total number of lines"
-          },
-          "unique_words": {
-            "type": "integer",
-            "description": "Number of unique words"
-          }
-        },
-        "required": ["word_count", "char_count", "line_count", "unique_words"],
-        "additionalProperties": false
-      }
-    },
-    "required": ["basic_stats"],
-    "additionalProperties": false
   }
 } 
