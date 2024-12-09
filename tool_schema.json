@@ -1,12 +1,12 @@
 {
   "name": "word_counter",
-  "description": "Counts words and provides text statistics",
+  "description": "Counts words in text",
   "input_schema": {
     "type": "object",
     "properties": {
       "text": {
         "type": "string",
-        "description": "Text to analyze"
+        "description": "Text to count"
       }
     },
     "required": ["text"],
