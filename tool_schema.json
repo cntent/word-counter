@@ -7,96 +7,66 @@
     "Authorization": "Bearer ${{ secrets.GITHUB_TOKEN }}",
     "Accept": "application/vnd.github.v3+json"
   },
-  "type": "object",
-  "additionalProperties": false,
-  "required": ["name", "description", "api_endpoint", "method", "headers", "input_schema", "returns"],
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "api_endpoint": {
-      "type": "string"
-    },
-    "method": {
-      "type": "string"
-    },
-    "headers": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["Authorization", "Accept"],
-      "properties": {
-        "Authorization": {
-          "type": "string"
-        },
-        "Accept": {
-          "type": "string"
-        }
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "text": {
+        "type": "string",
+        "description": "The text to analyze"
+      },
+      "include_analysis": {
+        "type": "boolean",
+        "description": "Whether to include Claude's detailed analysis",
+        "default": false
+      },
+      "top_n_words": {
+        "type": "integer",
+        "description": "Number of most frequent words to return",
+        "minimum": 1,
+        "default": null
       }
     },
-    "input_schema": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "text": {
-          "type": "string",
-          "description": "The text to analyze"
-        },
-        "include_analysis": {
-          "type": "boolean",
-          "description": "Whether to include Claude's detailed analysis",
-          "default": false
-        },
-        "top_n_words": {
-          "type": "integer",
-          "description": "Number of most frequent words to return",
-          "minimum": 1,
-          "default": null
+    "required": ["text"]
+  },
+  "returns": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["basic_stats", "word_frequency", "claude_analysis"],
+    "properties": {
+      "basic_stats": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["word_count", "char_count", "line_count", "unique_words"],
+        "properties": {
+          "word_count": {
+            "type": "integer",
+            "description": "Total number of words"
+          },
+          "char_count": {
+            "type": "integer",
+            "description": "Total number of characters (excluding whitespace)"
+          },
+          "line_count": {
+            "type": "integer",
+            "description": "Total number of lines"
+          },
+          "unique_words": {
+            "type": "integer",
+            "description": "Number of unique words"
+          }
         }
       },
-      "required": ["text"]
-    },
-    "returns": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["basic_stats", "word_frequency", "claude_analysis"],
-      "properties": {
-        "basic_stats": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["word_count", "char_count", "line_count", "unique_words"],
-          "properties": {
-            "word_count": {
-              "type": "integer",
-              "description": "Total number of words"
-            },
-            "char_count": {
-              "type": "integer",
-              "description": "Total number of characters (excluding whitespace)"
-            },
-            "line_count": {
-              "type": "integer",
-              "description": "Total number of lines"
-            },
-            "unique_words": {
-              "type": "integer",
-              "description": "Number of unique words"
-            }
-          }
-        },
-        "word_frequency": {
-          "type": "object",
-          "description": "Dictionary of word frequencies",
-          "additionalProperties": {
-            "type": "integer"
-          }
-        },
-        "claude_analysis": {
-          "type": "string",
-          "description": "Detailed analysis by Claude (if requested)"
+      "word_frequency": {
+        "type": "object",
+        "description": "Dictionary of word frequencies",
+        "additionalProperties": {
+          "type": "integer"
         }
+      },
+      "claude_analysis": {
+        "type": "string",
+        "description": "Detailed analysis by Claude (if requested)"
       }
     }
   }
