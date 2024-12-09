@@ -130,11 +130,4 @@ class WordCounter:
             return {"error": "Input must be a dictionary with a 'text' key"}
             
         stats = self.count_from_text(input_dict['text'])
-        return {
-            "basic_stats": {
-                "word_count": stats['word_count'],
-                "char_count": stats['char_count'],
-                "line_count": stats['line_count'],
-                "unique_words": stats['unique_words']
-            }
-        }
+        return stats
