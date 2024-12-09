@@ -105,3 +105,21 @@ class WordCounter:
             }
         except Exception as e:
             raise Exception(f"Error calling Anthropic API: {str(e)}")
+
+    def anthropic_analyze(self, text: str) -> dict:
+        """Simple interface for Anthropic to analyze text."""
+        try:
+            # Get basic stats
+            stats = self.count_from_text(text)
+            
+            # Return in a simple format
+            return {
+                "basic_stats": {
+                    "word_count": stats['word_count'],
+                    "char_count": stats['char_count'],
+                    "line_count": stats['line_count'],
+                    "unique_words": stats['unique_words']
+                }
+            }
+        except Exception as e:
+            return {"error": str(e)}

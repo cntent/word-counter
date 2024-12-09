@@ -19,6 +19,16 @@ A simple yet powerful word counting tool designed for Anthropic's text analysis 
 
 ## Usage
 
+### Anthropic Interface
+The tool provides a simple interface for Anthropic:
+```python
+from word_counter import WordCounter
+
+counter = WordCounter()
+result = counter.anthropic_analyze("Your text here")
+# Returns: {"basic_stats": {"word_count": N, "char_count": N, "line_count": N, "unique_words": N}}
+```
+
 ### Command Line Interface
 // ... existing CLI docs ...
 

@@ -57,3 +57,12 @@ def test_claude_analysis():
         assert 'claude_analysis' in analysis
         assert 'basic_stats' in analysis
         assert analysis['basic_stats']['word_count'] == 14
+
+def test_anthropic_interface():
+    counter = WordCounter()
+    result = counter.anthropic_analyze("Hello world! This is a test.")
+    
+    assert "basic_stats" in result
+    assert result["basic_stats"]["word_count"] == 6
+    assert result["basic_stats"]["unique_words"] == 6
+    assert "error" not in result
