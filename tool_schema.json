@@ -12,17 +12,18 @@
     "required": ["text"],
     "additionalProperties": false
   },
-  "returns": {
+  "parameters": {
     "type": "object",
     "properties": {
-      "basic_stats": {
-        "type": "object",
-        "properties": {
-          "word_count": {"type": "integer"},
-          "char_count": {"type": "integer"},
-          "line_count": {"type": "integer"},
-          "unique_words": {"type": "integer"}
-        }
+      "model": {
+        "type": "string",
+        "enum": ["claude-3-5-sonnet-20241022"]
+      },
+      "max_tokens": {
+        "type": "integer"
+      },
+      "temperature": {
+        "type": "number"
       }
     }
   }

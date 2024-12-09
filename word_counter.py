@@ -131,10 +131,14 @@ class WordCounter:
             
         stats = self.count_from_text(input_dict['text'])
         return {
-            "basic_stats": {
-                "word_count": stats['word_count'],
-                "char_count": stats['char_count'],
-                "line_count": stats['line_count'],
-                "unique_words": stats['unique_words']
-            }
+            "role": "assistant",
+            "content": [
+                {
+                    "type": "text",
+                    "text": f"Word count: {stats['word_count']}\n"
+                           f"Character count: {stats['char_count']}\n"
+                           f"Line count: {stats['line_count']}\n"
+                           f"Unique words: {stats['unique_words']}"
+                }
+            ]
         }
