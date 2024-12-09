@@ -123,3 +123,18 @@ class WordCounter:
             }
         except Exception as e:
             return {"error": str(e)}
+
+    def __call__(self, input_dict: dict) -> dict:
+        """Make the class callable with the exact format Anthropic uses."""
+        if not isinstance(input_dict, dict) or 'text' not in input_dict:
+            return {"error": "Input must be a dictionary with a 'text' key"}
+            
+        stats = self.count_from_text(input_dict['text'])
+        return {
+            "basic_stats": {
+                "word_count": stats['word_count'],
+                "char_count": stats['char_count'],
+                "line_count": stats['line_count'],
+                "unique_words": stats['unique_words']
+            }
+        }
